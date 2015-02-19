@@ -1,3 +1,4 @@
+var returnedCaptcha;
 //create play area
 $('<div/>' ,{
 	'id': "playArea"
@@ -133,18 +134,21 @@ var test=theseCollide (generateSquares());
 //console.log(test[0]);
 
 //do something if true or false
+
 function captcha(par) {
-	var returned;
+	
 	if(par==0) {
         $("#oktext").remove();
+        returnedCaptcha="0";
     }
 	if(par==1) {
+    $("#oktext").remove();
     $('<div/>' ,{
     'id': "oktext",
     'text': "That's right!" }).appendTo('#playArea');
     $("#oktext").css({"top": "52px", "font-size":"10px", "font-family":"verdana", "position":"absolute", "font-weight":"bold"});
+    returnedCaptcha="1";
     };
-	return par;
 } 
 
 
@@ -153,3 +157,7 @@ $("#playArea").children().mousedown(function() {
 	var clickedDiv=$("#"+this.id);
 	clickedDiv.css({"z-index": "100"});
 });
+
+
+console.log(returnedCaptcha);
+console.log(window.returnedCaptcha);
