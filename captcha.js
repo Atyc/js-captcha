@@ -1,9 +1,10 @@
-var returnedCaptcha;
+var returnedCaptcha="0";
 //create play area
+$("#captcha").css({"display":"block", "clear":"both", "height":"55px", "margin-top":"15px"});
 $('<div/>' ,{
 	'id': "playArea"
-}).appendTo('body');
-$("#playArea").css({"border": "1px solid black", "width":"190px", "height":"50px", "position":"relative", "margin-bottom":"10px"});
+}).appendTo('#captcha');
+$("#playArea").css({"border": "1px solid black", "width":"190px", "height":"50px", "position":"absolute", "margin-bottom":"10px", "display":"block"});
 
 //color list - a square will be created for each color defined here
 var sqrColors={
@@ -38,18 +39,18 @@ function generateSquares() {
 //generate text on top
 $('<div/>' ,{
 	'id': "toptext",
-	'text': "Drag " + theTwoSquares[0] + " square over " + theTwoSquares[1]+" square"
+	'html': "Drag <u>" + theTwoSquares[0] + "</u> square over <u>" + theTwoSquares[1]+"</u> square"
 }).appendTo('#playArea');
-$("#toptext").css({"top": "-15px", "font-size":"10px", "font-family":"verdana", "position":"absolute"});
+$("#toptext").css({"top": "-15px", "font-size":"9px", "font-family":"verdana", "position":"absolute"});
 return theTwoSquares;
 }
 
-//add option to refresh CAPTCHA code
-$('<div/>' ,{
-	'id': "refresh",
-	'text': "refresh"
-}).appendTo('#playArea');
-$("#refresh").css({"left": "155px", "top": "52px", "font-size":"10px", "font-family":"verdana", "position":"absolute"});
+//add option to refresh CAPTCHA code - stopped
+// $('<div/>' ,{
+// 	'id': "refresh",
+// 	'text': "refresh"
+// }).appendTo('#playArea');
+// $("#refresh").css({"left": "155px", "top": "52px", "font-size":"10px", "font-family":"verdana", "position":"absolute"});
 
 $("#refresh").click(function() {
 	for (var i = 1; i < Object.keys(sqrColors).length; i++) {
@@ -139,7 +140,8 @@ function captcha(par) {
 	
 	if(par==0) {
         $("#oktext").remove();
-        returnedCaptcha="0";
+        var returnedCaptcha="0";
+        $("#checker").attr("value", "10");
     }
 	if(par==1) {
     $("#oktext").remove();
@@ -147,7 +149,8 @@ function captcha(par) {
     'id': "oktext",
     'text': "That's right!" }).appendTo('#playArea');
     $("#oktext").css({"top": "52px", "font-size":"10px", "font-family":"verdana", "position":"absolute", "font-weight":"bold"});
-    returnedCaptcha="1";
+    var returnedCaptcha="1";
+    $("#checker").attr("value", "1");
     };
 } 
 
@@ -158,6 +161,3 @@ $("#playArea").children().mousedown(function() {
 	clickedDiv.css({"z-index": "100"});
 });
 
-
-console.log(returnedCaptcha);
-console.log(window.returnedCaptcha);
